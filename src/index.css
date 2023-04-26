@@ -1,0 +1,38 @@
+#root{
+    height: 100vh;
+}
+.div_padre{
+    height: 100%;
+}
+
+.navbar{
+    background-color: #e3f2fd;
+    height: 9%;
+}
+
+.div_form{
+    font-size: 15px;
+    width: 26%;
+    height: 91%;
+    border-right: 8px solid #314A5A;
+    padding: 10px;
+    background-color: #E2E2E2;
+}
+
+.formulario{
+    width: 100%;
+}
+
+.text_tarea{
+    height: 150px;
+}
+#input_des{
+    height: 100px;
+}
+
+.img-bitam{
+    width: 120px;
+    margin-right: 1%;
+}
+
+
