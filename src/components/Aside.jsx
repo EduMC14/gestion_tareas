@@ -63,7 +63,7 @@ const Aside = () => {
             </div>
           </div>
           <div class="d-grid gap-2">
-              <button class="btn btn-success mt-2" type="button">Guardar</button>
+              <button class="btn btn-success mt-2" type="sucess" name='create task'>Guardar</button>
               
           </div>
         </div>

@@ -10,7 +10,7 @@ const Datetime = () => {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer components={['DatePicker']} >
-          <DatePicker label="Fecha"  />
+          <DatePicker label="Fecha" />
         </DemoContainer>
       </LocalizationProvider>
       );
