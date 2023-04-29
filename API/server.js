@@ -1,10 +1,10 @@
-import express from 'express';
+import  express from 'express';
 import { createConnection } from 'mysql';
 import cors from 'cors'
 
 
 const app = express();
-
+var router = express.Router();
 app.use(cors());
 
 const connection = createConnection({
@@ -35,7 +35,11 @@ app.get('/tareas', (req, res) => {
   });
 });
 
+router.post('saveTask');
+
 app.listen(3001, () => {
   console.log('API RESTful corriendo en el puerto 3001');
 });
+
+
 

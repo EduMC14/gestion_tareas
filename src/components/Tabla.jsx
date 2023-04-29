@@ -9,6 +9,7 @@ const Tabla = ({tareas}) => {
           <th scope='col'>Fecha de Creacion</th>
           <th scope="col">Titulo</th>
           <th scope="col">Descripcion</th>
+          <th scope='col'>Fecha a entregar</th>
           <th scope="col">Status</th>
         </tr>
       </thead>
