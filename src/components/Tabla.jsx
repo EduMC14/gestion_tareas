@@ -3,7 +3,7 @@ import React from 'react'
 const Tabla = ({tareas}) => {
     return (
         <div className='col-md-8' id='div_tabla'>
-          <table class="table table-bordered">
+          <table className="table table-bordered">
       <thead>
         <tr>
           <th scope='col'>Fecha de Creacion</th>
@@ -16,10 +16,11 @@ const Tabla = ({tareas}) => {
       <tbody className='table-group-divider'>
       {  tareas.map((row_tarea, index) => (
         <tr  key={index}>
-            <th>{row_tarea.fecha_de_creacion}</th>
+            <th>{row_tarea.create_date}</th>
             <th>{row_tarea.titulo}</th>
             <th>{row_tarea.descripcion}</th>
-            <th>{row_tarea.id}</th>
+            <th>{row_tarea.fecha_a_entregar}</th>
+            <th>{row_tarea.status}</th>
         </tr>
       ))}
       </tbody>

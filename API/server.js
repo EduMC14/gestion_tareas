@@ -1,30 +1,16 @@
 import  express from 'express';
-import { createConnection } from 'mysql';
 import cors from 'cors'
+import { connection } from './db.js'
 
 
 const app = express();
-var router = express.Router();
+const router = express.Router();
 app.use(cors());
+app.use(express.json());
 
-const connection = createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Emc140999',
-  database: 'crud_php_mysql',
-  port: 3307
-});
-
-connection.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('Conectado a la base de datos');
-  }
-});
 
 app.get('/tareas', (req, res) => {
-  const query = 'SELECT * FROM tarea';
+  const query = 'SELECT * FROM task';
 
   connection.query(query, (err, rows) => {
     if (err) {
@@ -35,11 +21,24 @@ app.get('/tareas', (req, res) => {
   });
 });
 
-router.post('saveTask');
+router.post('/saveTask',(req, res) => {
+  const { titulo, descripcion,  fecha_a_entregar, status } = req.body;
+
+  const query = "INSERT INTO task(titulo, descripcion, fecha_entregable, status) VALUES (?,?,?,?)";
+
+  connection.query(query, [titulo, descripcion, fecha_a_entregar, status], function (error, results){
+    if (error) throw error;
+
+    res.status(200).json({message: 'El registro se guardo correctamente'})
+  })
+});
+
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Algo salió mal!');
+});
+
 
 app.listen(3001, () => {
   console.log('API RESTful corriendo en el puerto 3001');
 });
-
-
-
