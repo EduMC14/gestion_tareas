@@ -51,3 +51,15 @@
     
 }
 
+.date-picker-wrapper .MuiInputBase-root {
+    width: 300px; /* ajusta el ancho */
+    height: 45px; /* ajusta la altura */
+    font-size: 19px;
+    background-color: #e3f2fd;
+    margin: auto;
+  }
+
+.box-buttons{
+    display: flex;
+    justify-content: space-around;
+}

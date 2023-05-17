@@ -1,12 +1,36 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import logo from '../assets/logo-bitam.svg'
+import dayjs from 'dayjs';
 
-const Header = () => {
+
+const Header = ({fecha}) => {
+
+    const [optionFechas, setOptionFechas] =  useState([]);
+
+   async function getFechas(){
+
+      const request = await fetch('http://localhost:3001/fechas')
+
+      const response = await request.json();
+
+      setOptionFechas(response);
+
+    }
+
+    useEffect( () =>{
+      getFechas();
+    }, [])
+
+    function setFechaTask(e){
+      fecha(e.target.value);
+    }
+
+
     return (
       <nav className="navbar navbar-expand-lg navbar-text-light" id='navegador'>
         <div className="container-fluid">
           <img src={logo} alt="" className='img-bitam'/>
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="index.html">
             Gestion De Tareas
           </a>
           <button
@@ -31,11 +55,13 @@ const Header = () => {
                 <select
                   class="form-select form-select-sm "
                   aria-label=".form-select-sm example"
+                  onChange={setFechaTask}
                 >
-                  <option selected>Open this select menu</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  {
+                    optionFechas.map((row, index) => (
+                      <option value={dayjs(row.fecha).format('YYYY-MM-DD')} key={index} >{dayjs(row.fecha).format('DD/MM/YYYY')}</option>
+                    ))
+                  }
                 </select>
               </li>
             </ul>

@@ -1,16 +1,18 @@
 
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import Datetime from './Datetime';
 import dayjs from 'dayjs';
+// import ModalEdit from './ModalEdit';
 
 const Aside = () => {
+
 
   const [formTask, setFormTask] = useState({
     titulo: '',
     descripcion: '',
-    fecha_a_entregar: dayjs(new Date().toLocaleDateString()).format('DD/MM/YYYY'),
+    fecha_a_entregar: dayjs(new Date().toLocaleDateString()).format('YYYY-MM-DD'),
     status: ''
   })
 
@@ -45,6 +47,8 @@ const Aside = () => {
       console.log(res.data);
     });
 
+   
+
     setFormTask({...formTask, ['status']: '', titulo: '', descripcion: ''})
   
   }
@@ -65,6 +69,7 @@ const Aside = () => {
           onChange={saveFormState}
           name='titulo'
           value={formTask.titulo}
+          required
         />
         <h5 className="mt-3">Descripcion</h5>
         <textarea
@@ -76,6 +81,7 @@ const Aside = () => {
           onChange={saveFormState}
           name='descripcion'
           value={formTask.descripcion}
+          required
         ></textarea>
         <h5>Entregable</h5>
         <Datetime date={formTask} save={setFormTask} />
