@@ -1,12 +1,12 @@
 
-
 import { useState } from 'react';
 import axios from 'axios';
 import Datetime from './Datetime';
 import dayjs from 'dayjs';
-// import ModalEdit from './ModalEdit';
+import { ToastContainer, toast } from 'react-toastify';
 
-const Aside = () => {
+
+const Aside = ({ refresh, stateRe }) => {
 
 
   const [formTask, setFormTask] = useState({
@@ -42,20 +42,31 @@ const Aside = () => {
 
   const submitForm = (e) => {
     e.preventDefault()
-
-    axios.post("http://localhost:3001/saveTask", formTask).then((res) => {
-      console.log(res.data);
-    });
-
-   
-
-    setFormTask({...formTask, ['status']: '', titulo: '', descripcion: ''})
-  
-  }
-  
     
+    toast.promise(
+      axios.post("http://localhost:3001/saveTask", formTask),
+      {
+        pending: 'Guardando...',
+        success: 'Tarea Guardada 👌',
+        error: 'Upss, Hubo un error al guardar🤯'
+      }
+    )
+      .then(() => {
+        setFormTask({ ...formTask, status: '', titulo: '', descripcion: '' });
+        refresh(!stateRe);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  
+
   return (
     <div className="div_form">
+      <div>
+      <ToastContainer autoClose={1500} />
+      </div>
       <form className='formulario' onSubmit={submitForm}>
         <h4>Agregar Tarea</h4> 
         
@@ -77,7 +88,7 @@ const Aside = () => {
           cols="30"
           rows="10"
           className="form-control text_tarea descripcion"
-          placeholder="Leave a comment here"
+          placeholder="Escribe tu Descripcion"
           onChange={saveFormState}
           name='descripcion'
           value={formTask.descripcion}

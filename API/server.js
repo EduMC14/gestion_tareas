@@ -4,11 +4,9 @@ import bodyParser from 'body-parser';
 import { connection } from './db.js'
 
 
-
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-
 
 
 
@@ -46,11 +44,15 @@ app.post('/saveTask',(req, res) => {
 
   const query = "INSERT INTO task(titulo, descripcion, fecha_a_entregar, status) VALUES (?,?,?,?)";
   connection.query(query, [titulo, descripcion, fecha_a_entregar, status], function (error, results){
-    if (error) throw error;
-
-    res.status(200).json({message: 'El registro se guardo correctamente'})
+    if (error){
+      res.status(500).json({
+        message: 'Hubo un error al guardar',
+        error: error.message
+      })
+    }else {
+      res.status(200).json({message: 'Registro guardado correctamente'})
+    }
   })
-  console.log(req.body);
 });
 
 
@@ -65,8 +67,14 @@ app.put('/updateRegister/:id', (req, res) =>{
   const sql = `UPDATE task SET titulo = ?, descripcion = ?, fecha_a_entregar = ?, status = ? WHERE id = ?`;
 
   connection.query(sql, [titulo, descripcion, fecha_a_entregar, status, id], (err, result) => {
-    if (err) throw err;
-    res.send(`La fila con id ${id} ha sido actualizada.`);
+    if (err){
+      res.status(500).json({
+        message: 'Hubo un error al guardar' ,
+        error: err.message
+      })
+    }else {
+      res.status(200).json({message: `La fila con id ${id} ha sido actualizada.`})
+    }
   });
 
 });

@@ -1,10 +1,10 @@
 * {
     margin:0;
     padding:0;
-  }
-
+    }
 #root{
     height: 100vh;
+    font-family: 'Instrument Sans', sans-serif;
 }
 .div_padre{
     height: 100vh;
@@ -13,11 +13,13 @@
 .div_body{
     display: flex;
     height: 91%;
+    background-color: #C3C3C3;
 }
 
 .navbar{
-    background-color: #e3f2fd;
+    background-color: #1e2125;
     height: 9%;
+    
 }
 
 .div_form{
@@ -26,7 +28,8 @@
     height: 100%;
     border-right: 8px solid #314A5A;
     padding: 10px 10px 10px 10px;
-    background-color: #E2E2E2;
+    background-color: #454545;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .formulario{
@@ -48,18 +51,43 @@
 
 #div_tabla{
     width: 74%;
-    
+    overflow: scroll;
+    background-color: #121212;
 }
+
+/* thead{
+    color: black;
+} */
+
+
 
 .date-picker-wrapper .MuiInputBase-root {
     width: 300px; /* ajusta el ancho */
     height: 45px; /* ajusta la altura */
     font-size: 19px;
-    background-color: #e3f2fd;
+    background-color: #314A5A;
     margin: auto;
-  }
+    color: whitesmoke;
+    }
 
 .box-buttons{
     display: flex;
     justify-content: space-around;
+}
+
+
+/* .row-verde {
+    background-color: #E9FFE9;
+    }
+
+.row-azul{
+    background-color: #E9E9FF ;
+}
+
+.row-rojo{
+    background-color: #FFE9E9;
+} */
+
+th{
+    font-weight: 400;
 }
