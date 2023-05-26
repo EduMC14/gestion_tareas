@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 import logo from '../assets/logo-bitam.svg'
 import dayjs from 'dayjs';
-/* import { ThemeProvider } from 'styled-components'; */
+import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from '../../style/theme.js';
+import { GlobalStyles } from '../../style/global';
+import Toggle from './Toggle'
+
 
 
 
@@ -20,6 +23,20 @@ const Header = ({fecha}) => {
       setOptionFechas(response);
 
     }
+    
+    const [theme, setTheme] = useState('light');
+
+    // The function that toggles between themes
+    const toggleTheme = () => {
+      // if the theme is not light, then set it to dark
+      console.log('desde el evento')
+      if (theme === 'light') {
+        setTheme('dark');
+      // otherwise, it should be light
+      } else {
+        setTheme('light');
+      }
+    }
 
     useEffect( () =>{
       getFechas();
@@ -34,7 +51,7 @@ const Header = ({fecha}) => {
       <nav className="navbar navbar-expand-lg navbar-text-light" id="navegador">
         <div className="container-fluid">
           <img src={logo} alt="" className="img-bitam" />
-          <a className="navbar-brand text-white" href="index.html">
+          <a className="navbar-brand " href="index.html">
             Gestion De Tareas
           </a>
           <button
@@ -51,7 +68,7 @@ const Header = ({fecha}) => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active fs-6 text-white">Fecha</a>
+                <a className="nav-link active fs-6">Fecha</a>
               </li>
               <li className="nav-item d-flex align-items-center">
                 <select
@@ -70,12 +87,12 @@ const Header = ({fecha}) => {
                 </select>
               </li>
             </ul>
-            {/* <ThemeProvider theme={lightTheme}>
+            <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
               <>
                 <GlobalStyles />
-                <button>Toggle theme</button>
+                <Toggle theme={theme} toggleTheme={toggleTheme} />
               </>
-            </ThemeProvider> */}
+            </ThemeProvider>
             <form className="d-flex" role="search">
               <input
                 className="form-control me-2"

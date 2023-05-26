@@ -3,23 +3,70 @@
 
 import { createGlobalStyle } from 'styled-components';
 
+
 export const GlobalStyles = createGlobalStyle`
   *,
   *::after,
   *::before {
     box-sizing: border-box;
   }
-
-  body {
-    align-items: center;
-    background: ${({ theme }) => theme.body};
-    color: ${({ theme }) => theme.text};
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    font-family: BlinkMacSystemFont, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  
+  .navbar{
+    background-color:${({ theme }) => theme.header};
+    color:${({ theme }) => theme.color};
     transition: all 0.25s linear;
-  }`;
+  }
+  
+  .navbar-brand{
+    color:${({ theme }) => theme.color_header};
+    transition: all 0.25s linear;
+  } 
+
+  #div_tabla{
+    width: 74%;
+    overflow: scroll;
+    background-color: ${({ theme }) => theme.bg_table};
+    transition: all 0.25s linear;
+    
+}
+  table{
+    color:${({theme}) =>  theme.color_table};
+    transition: all 0.25s linear;
+  }
+
+  .row-verde {
+    background-color: ${({theme}) =>  theme.row_verde};
+    transition: all 0.25s linear;
+    }
+
+    .row-azul{
+      background-color: ${({theme}) =>  theme.row_azul};
+      transition: all 0.25s linear;
+  }
+  
+  .row-rojo{
+      background-color: ${({theme}) =>  theme.row_rojo};
+      transition: all 0.25s linear;
+  } 
+
+  .div_form{
+    color:${({theme}) =>  theme.color_aside};
+    background-color:${({theme}) => theme.bg_aside};
+    transition: all 0.25s linear;
+}
+
+.date-picker-wrapper .MuiInputBase-root {
+  background-color: ${({theme}) => theme.bg_picker};
+  color: ${({theme}) => theme.color_picker} ;
+  transition: all 0.25s linear;
+  }
+
+.Moon{
+  width:25px;
+}
+  `
+
+
+
+
+  

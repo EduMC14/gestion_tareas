@@ -51,7 +51,7 @@ const Tabla = ({tareas, refresh, stateRe}) => {
       setStateModal={setStateModal}
       />
       
-      <table className="table table-bordered text-white border-dark">
+      <table className="table table-bordered ">
         <thead className='fs-6'>
           <tr className='text-center align-middle'>
             <th scope="col" className='col-1'><strong>Fecha de Creacion</strong></th>
