@@ -78,3 +78,15 @@
 th{
     font-weight: 400;
 }
+
+.div_tabs{
+    margin-left: 5px;
+}
+
+.tabs{
+    background-color: #BED5D8;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: black;
+    
+}

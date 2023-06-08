@@ -6,6 +6,8 @@ import { lightTheme, darkTheme } from '../../style/theme.js';
 import { GlobalStyles } from '../../style/global';
 import Toggle from './Toggle'
 
+import Nav from 'react-bootstrap/Nav'
+
 
 
 
@@ -86,13 +88,27 @@ const Header = ({fecha}) => {
                   ))}
                 </select>
               </li>
+              <Nav variant="tabs" defaultActiveKey="/home" className='div_tabs'>
+              <Nav.Item className='tabs'>
+                <Nav.Link className='text-reset'>Mis Tareas</Nav.Link>
+              </Nav.Item>
+              <Nav.Item className='tabs'>
+                <Nav.Link eventKey="#" className='text-reset'>Asignar Tareas</Nav.Link>
+              </Nav.Item>
+              <Nav.Item className='tabs'>
+                <Nav.Link eventKey="" className='text-reset'>
+                  Disabled
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
             </ul>
-            <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+            <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
               <>
                 <GlobalStyles />
                 <Toggle theme={theme} toggleTheme={toggleTheme} />
               </>
             </ThemeProvider>
+
             <form className="d-flex" role="search">
               <input
                 className="form-control me-2"
