@@ -19,5 +19,6 @@ export const darkTheme = {
     color_aside:'rgba(255, 255, 255, 0.7)',
     bg_picker: '#314A5A',
     color_picker:'whitesmoke',
-    gradient: 'linear-gradient(#091236, #1E215D)'
+    gradient: 'linear-gradient(#091236, #1E215D)',
+    body_box: '#262829'
 }

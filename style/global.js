@@ -22,6 +22,12 @@ export const GlobalStyles = createGlobalStyle`
     transition: all 0.25s linear;
   } 
 
+  .div_body{
+    height: 91%;
+    width: 100%;
+    background-color:${({ theme }) => theme.body_box};
+}
+
   #div_tabla{
     width: 74%;
     overflow: scroll;
@@ -51,6 +57,12 @@ export const GlobalStyles = createGlobalStyle`
 
   .div_form{
     color:${({theme}) =>  theme.color_aside};
+    background-color:${({theme}) => theme.bg_aside};
+    transition: all 0.25s linear;
+}
+
+.box_canvas_header{
+  color:${({theme}) =>  theme.color_aside};
     background-color:${({theme}) => theme.bg_aside};
     transition: all 0.25s linear;
 }

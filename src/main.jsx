@@ -5,13 +5,15 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import 'react-toastify/dist/ReactToastify.css';
+import App from './App.jsx'
 
 
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Routers />
+    {/* <Routers /> */}
+    <App />
   </React.StrictMode>,
 )
 

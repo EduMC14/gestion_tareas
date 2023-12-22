@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext} from 'react'
 import logo from '../assets/logo-bitam.svg'
 import dayjs from 'dayjs';
 import { ThemeProvider } from 'styled-components';
@@ -7,23 +7,24 @@ import { GlobalStyles } from '../../style/global';
 import Toggle from './Toggle'
 
 import Nav from 'react-bootstrap/Nav'
+import Button from 'react-bootstrap/Button';
+
+import { fechaContext } from '../App.jsx';
 
 
 
 
 
-const Header = ({fecha}) => {
-
+const Header = ({setShow}) => {
+    const setFechaCon = useContext(fechaContext);
     const [optionFechas, setOptionFechas] =  useState([]);
 
   async function getFechas(){
 
       const request = await fetch('http://localhost:3001/fechas')
-
       const response = await request.json();
-
       setOptionFechas(response);
-
+      setFechaCon(dayjs(response[0].fecha).format('YYYY-MM-DD'));
     }
     
     const [theme, setTheme] = useState('light');
@@ -31,7 +32,6 @@ const Header = ({fecha}) => {
     // The function that toggles between themes
     const toggleTheme = () => {
       // if the theme is not light, then set it to dark
-      console.log('desde el evento')
       if (theme === 'light') {
         setTheme('dark');
       // otherwise, it should be light
@@ -45,8 +45,12 @@ const Header = ({fecha}) => {
     }, [])
 
     function setFechaTask(e){
-      fecha(e.target.value);
+      setFechaCon(e.target.value);
+      
     }
+
+    /* Funcionees para mostrar el modal */
+  const handleShow = () => setShow(true);
 
 
     return (
@@ -80,6 +84,7 @@ const Header = ({fecha}) => {
                 >
                   {optionFechas.map((row, index) => (
                     <option
+                      
                       value={dayjs(row.fecha).format("YYYY-MM-DD")}
                       key={index}
                     >
@@ -88,6 +93,12 @@ const Header = ({fecha}) => {
                   ))}
                 </select>
               </li>
+              <li className="nav-item d-flex align-items-center">
+              <Button variant="primary" onClick={handleShow}>
+        Agregar Tarea
+      </Button>
+
+                </li>
               <Nav variant="tabs" defaultActiveKey="/home" className='div_tabs'>
               <Nav.Item className='tabs'>
                 <Nav.Link className='text-reset'>Mis Tareas</Nav.Link>

@@ -44,14 +44,14 @@ const Tabla = ({tareas, refresh, stateRe}) => {
 
 
   return (
-    <div className="col-md-8" id="div_tabla">
+    <div id="div_tabla">
       <ModalEdit id={idUpdate} show={show} close={handleClose} refresh={refresh} 
       stateRe={stateRe} 
       stateModal={stateModal}
       setStateModal={setStateModal}
       />
       
-      <table className="table table-bordered ">
+      <table className="table table-bordered">
         <thead className='fs-6'>
           <tr className='text-center align-middle'>
             <th scope="col" className='col-1'><strong>Fecha de Creacion</strong></th>

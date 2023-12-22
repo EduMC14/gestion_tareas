@@ -11,8 +11,9 @@
 }
 
 .div_body{
-    display: flex;
     height: 91%;
+    width: 100%;
+    
 }
 
 .navbar{
@@ -23,13 +24,20 @@
 
 .div_form{
     font-size: 15px;
-    width: 26%;
+    width: 100%;
     height: 100%;
     border-right: 8px solid #314A5A;
     padding: 10px 10px 10px 10px;
     background-color: #454545;
     /* color: rgba(255, 255, 255, 0.7); */
 }
+
+.box_canvas_header{
+    background-color: #454545;
+    border-right: 8px solid #314A5A;
+}
+
+
 
 .formulario{
     width: 100%;
@@ -49,10 +57,16 @@
 
 
 #div_tabla{
-    width: 74%;
-    overflow: scroll;
-    /* background-color: #121212; */
+    height: 100%;
+    width: 85% !important;
+    margin: auto;
+    overflow-x: hidden !important;
+    /* background-
+    color: #121212; */
 }
+
+
+
 
 /* thead{
     color: black;
@@ -90,3 +104,4 @@ th{
     color: black;
     
 }
+

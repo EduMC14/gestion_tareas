@@ -33,6 +33,8 @@ app.get('/tareas/:fecha', (req, res) => {
       res.status(500).json({ error: err.message });
     } else {
       res.json(rows);
+      console.log("Send tasks")
+      console.log(rows)
     }
   });
 });
@@ -41,6 +43,7 @@ app.get('/tareas/:fecha', (req, res) => {
 app.post('/saveTask',(req, res) => {
 
   let { titulo, descripcion,  fecha_a_entregar, status } = req.body;
+  
 
   const query = "INSERT INTO task(titulo, descripcion, fecha_a_entregar, status) VALUES (?,?,?,?)";
   connection.query(query, [titulo, descripcion, fecha_a_entregar, status], function (error, results){
