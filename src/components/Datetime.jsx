@@ -9,21 +9,21 @@ dayjs.extend(customParseFormat);
   
 
 const Datetime = ( props ) => {
- 
   const handleChange = (newValue) => {
     const newDate = dayjs(newValue).format('YYYY-MM-DD');
-    props.save({...props.date, 'fecha_a_entregar':  newDate})
+    
+    console.log(props.property)
+    props.save({...props.state, [props.property]:  newDate})
   };
 
     return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}  >
+        <LocalizationProvider dateAdapter={AdapterDayjs} >
         <DemoContainer components={['DatePicker']}  >
           <div className="date-picker-wrapper">
           <DatePicker 
           label="Fecha"
-          value={dayjs(props.date.fecha_a_entregar, 'YYYY-MM-DD')} 
+          value={dayjs(props.state.fecha_a_entregar, 'YYYY-MM-DD')} 
           onChange={handleChange}
-          
           />
           </div>
         </DemoContainer>

@@ -10,11 +10,10 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 
-function Example({ refresh, stateRe, stateShow, setShow, fecha}) {
-  
-  
+function Example({ refresh, stateRe, stateShow, setShow, setReFechasHeader, reFechasHeader }) {
   
   const [formTask, setFormTask] = useState({
+    fecha_de_inicio: dayjs().format('YYYY-MM-DD'),
     titulo: '',
     descripcion: '',
     fecha_a_entregar: dayjs().format('YYYY-MM-DD'),
@@ -58,6 +57,10 @@ function Example({ refresh, stateRe, stateShow, setShow, fecha}) {
         setFormTask({ ...formTask, status: '', titulo: '', descripcion: '' });
         console.log("Refres Save Tarea")
         refresh(!stateRe);
+        setReFechasHeader(!reFechasHeader)
+        if (dayjs().format("YYYYY/MM/DD") ) {
+          
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -75,11 +78,11 @@ function Example({ refresh, stateRe, stateShow, setShow, fecha}) {
         
         <div className="div_form">
       <div>
-      <ToastContainer autoClose={1500} />
       </div>
       <form className='formulario' onSubmit={submitForm}>
-        
-        <h5 className="">Titulo</h5>
+        <h5>Fecha de Inicio</h5>
+        <Datetime state={formTask} save={setFormTask} property="fecha_de_inicio"/>
+        <h5>Titulo</h5>
         <input
           id="input_title"
           className="form-control titulo"
@@ -104,7 +107,7 @@ function Example({ refresh, stateRe, stateShow, setShow, fecha}) {
           required
         ></textarea>
         <h5>Entregable</h5>
-        <Datetime date={formTask} save={setFormTask} />
+        <Datetime state={formTask} save={setFormTask} property="fecha_a_entregar"/>
         <div className="form-check mt-3 p-0">
           <h5>Status de tu tarea</h5>
           <div>

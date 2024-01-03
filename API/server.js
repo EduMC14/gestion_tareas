@@ -42,11 +42,11 @@ app.get('/tareas/:fecha', (req, res) => {
 
 app.post('/saveTask',(req, res) => {
 
-  let { titulo, descripcion,  fecha_a_entregar, status } = req.body;
+  let { fecha_de_inicio, titulo, descripcion,  fecha_a_entregar, status } = req.body;
   
 
-  const query = "INSERT INTO task(titulo, descripcion, fecha_a_entregar, status) VALUES (?,?,?,?)";
-  connection.query(query, [titulo, descripcion, fecha_a_entregar, status], function (error, results){
+  const query = "INSERT INTO task(fecha_de_inicio, titulo, descripcion, fecha_a_entregar, status) VALUES (?,?,?,?,?)";
+  connection.query(query, [fecha_de_inicio, titulo, descripcion, fecha_a_entregar, status], function (error, results){
     if (error){
       res.status(500).json({
         message: 'Hubo un error al guardar',

@@ -12,20 +12,18 @@ import Button from 'react-bootstrap/Button';
 import { fechaContext } from '../App.jsx';
 
 
-
-
-
-const Header = ({setShow}) => {
+const Header = ({setShow, setOptionFechas , optionFechas}) => {
     const setFechaCon = useContext(fechaContext);
-    const [optionFechas, setOptionFechas] =  useState([]);
 
-  async function getFechas(){
+    /* const [optionFechas, setOptionFechas] =  useState([]); */
+
+  /* async function getFechas(){
 
       const request = await fetch('http://localhost:3001/fechas')
       const response = await request.json();
       setOptionFechas(response);
       setFechaCon(dayjs(response[0].fecha).format('YYYY-MM-DD'));
-    }
+    } */
     
     const [theme, setTheme] = useState('light');
 
@@ -40,16 +38,18 @@ const Header = ({setShow}) => {
       }
     }
 
-    useEffect( () =>{
+   /*  useEffect( () =>{
       getFechas();
-    }, [])
+    }, [reFechas]) */
 
     function setFechaTask(e){
+      setOptionFechas({...optionFechas, indice: e.target.id})
       setFechaCon(e.target.value);
-      
+      console.log(e.target)
+     
     }
 
-    /* Funcionees para mostrar el modal */
+    /* Funcion para mostrar el modal */
   const handleShow = () => setShow(true);
 
 
@@ -82,15 +82,16 @@ const Header = ({setShow}) => {
                   aria-label=".form-select-sm example"
                   onChange={setFechaTask}
                 >
-                  {optionFechas.map((row, index) => (
+                    {optionFechas.hFechas.map((row, index) => (
                     <option
                       
                       value={dayjs(row.fecha).format("YYYY-MM-DD")}
                       key={index}
+                      id={`${index}`}
                     >
                       {dayjs(row.fecha).format("DD/MM/YYYY")}
                     </option>
-                  ))}
+                  ))} 
                 </select>
               </li>
               <li className="nav-item d-flex align-items-center">

@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Datetime from './Datetime';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
@@ -71,6 +71,7 @@ const ModalEdit = ({ id, show, close, refresh, stateRe, stateModal, setStateModa
 
   return (
     <>
+    <ToastContainer autoClose={1500} />
       <Modal show={show} onHide={close}>
         <Modal.Header closeButton>
           <Modal.Title>Actualiza tu tarea</Modal.Title>
@@ -91,7 +92,7 @@ const ModalEdit = ({ id, show, close, refresh, stateRe, stateModal, setStateModa
               value={stateModal.descripcion}/>
             </Form.Group>
             <Form.Group>
-              <Datetime date={stateModal} save={setStateModal} />
+              <Datetime state={stateModal} save={setStateModal} property={'fecha_a_entregar'} />
             </Form.Group>
             <Form.Group>
             <Form.Label className='mt-2'>Estatus</Form.Label>
