@@ -1,17 +1,20 @@
-import { useState } from "react";
-import Button from "react-bootstrap/Button";
+import { useState, useContext } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
 
 import axios from 'axios';
 import Datetime from './Datetime';
 import dayjs from 'dayjs';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import { appContext } from "../App";
 
 
 
-function Example({ refresh, stateRe, stateShow, setShow, setReFechasHeader, reFechasHeader }) {
+function Example({ stateShow, setShow }) {
   
+  const appContexto = useContext(appContext)
+  
+
   const [formTask, setFormTask] = useState({
     fecha_de_inicio: dayjs().format('YYYY-MM-DD'),
     titulo: '',
@@ -53,12 +56,11 @@ function Example({ refresh, stateRe, stateShow, setShow, setReFechasHeader, reFe
         error: 'Upss, Hubo un error al guardar🤯'
       }
     )
-      .then(() => {
+      .then((res) => {
         setFormTask({ ...formTask, status: '', titulo: '', descripcion: '' });
-        console.log("Refres Save Tarea")
-        refresh(!stateRe);
-        setReFechasHeader(!reFechasHeader)
-        if (dayjs().format("YYYYY/MM/DD") ) {
+        if (res.status === 200) {
+          appContexto.getFechas();
+          appContexto.fetchTareas(appContexto.fecha);
           
         }
       })

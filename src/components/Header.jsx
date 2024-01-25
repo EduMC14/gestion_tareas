@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext} from 'react'
+import { useState, useContext} from 'react'
 import logo from '../assets/logo-bitam.svg'
 import dayjs from 'dayjs';
 import { ThemeProvider } from 'styled-components';
@@ -9,21 +9,11 @@ import Toggle from './Toggle'
 import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button';
 
-import { fechaContext } from '../App.jsx';
+import { appContext } from '../App.jsx';
 
 
 const Header = ({setShow, setOptionFechas , optionFechas}) => {
-    const setFechaCon = useContext(fechaContext);
-
-    /* const [optionFechas, setOptionFechas] =  useState([]); */
-
-  /* async function getFechas(){
-
-      const request = await fetch('http://localhost:3001/fechas')
-      const response = await request.json();
-      setOptionFechas(response);
-      setFechaCon(dayjs(response[0].fecha).format('YYYY-MM-DD'));
-    } */
+    const contextHeader = useContext(appContext);
     
     const [theme, setTheme] = useState('light');
 
@@ -38,15 +28,13 @@ const Header = ({setShow, setOptionFechas , optionFechas}) => {
       }
     }
 
-   /*  useEffect( () =>{
-      getFechas();
-    }, [reFechas]) */
-
     function setFechaTask(e){
       setOptionFechas({...optionFechas, indice: e.target.id})
-      setFechaCon(e.target.value);
-      console.log(e.target)
-     
+      contextHeader.setFecha(e.target.value);
+    }
+
+    function setSearch(e){
+      contextHeader.setSearchValue(e.target.value)
     }
 
     /* Funcion para mostrar el modal */
@@ -66,6 +54,7 @@ const Header = ({setShow, setOptionFechas , optionFechas}) => {
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
+
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
@@ -94,25 +83,12 @@ const Header = ({setShow, setOptionFechas , optionFechas}) => {
                   ))} 
                 </select>
               </li>
-              <li className="nav-item d-flex align-items-center">
+              <li className="nav-item d-flex align-items-center mx-2">
               <Button variant="primary" onClick={handleShow}>
         Agregar Tarea
       </Button>
 
                 </li>
-              <Nav variant="tabs" defaultActiveKey="/home" className='div_tabs'>
-              <Nav.Item className='tabs'>
-                <Nav.Link className='text-reset'>Mis Tareas</Nav.Link>
-              </Nav.Item>
-              <Nav.Item className='tabs'>
-                <Nav.Link eventKey="#" className='text-reset'>Asignar Tareas</Nav.Link>
-              </Nav.Item>
-              <Nav.Item className='tabs'>
-                <Nav.Link eventKey="" className='text-reset'>
-                  Disabled
-                </Nav.Link>
-              </Nav.Item>
-            </Nav>
             </ul>
             <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
               <>
@@ -127,8 +103,10 @@ const Header = ({setShow, setOptionFechas , optionFechas}) => {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                value={appContext.searchValue} 
+                onChange={setSearch}
               />
-              <button className="btn btn-outline-primary" type="submit">
+              <button className="btn btn-outline-primary" >
                 Search
               </button>
             </form>

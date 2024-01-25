@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import axios from 'axios';
 import Button from 'react-bootstrap/esm/Button';
 import ModalEdit from './ModalEdit';
 import dayjs from 'dayjs';
+import { appContext } from '../App';
 
 
 
-const Tabla = ({tareas, refresh, stateRe}) => {
-
+const Tabla = ({tareas, stateRe}) => {
+  const contextApp = useContext(appContext)
+  
   const [idUpdate, setIdUpdate] = useState('');
   
   const [show, setShow] = useState(false);
@@ -19,7 +21,7 @@ const Tabla = ({tareas, refresh, stateRe}) => {
     status: ''
 
   })
-
+  
   const handleClose = () => setShow(false);
   const handleShow = (id) => {
     setStateModal()
@@ -31,21 +33,34 @@ const Tabla = ({tareas, refresh, stateRe}) => {
   
 
   function deleteRow(id) {
-
     axios.delete(`http://localhost:3001/deleteRow/${id}`).then((res) => {
-      console.log(res.data)
+      if (res.status === 200) {
+        contextApp.getFechas().then((respuesta) => {
+          contextApp.fetchTareas(dayjs(respuesta[0].fecha).format('YYYY-MM-DD'))
+        } )
+
+      }
     }
     ).catch(error => {
       console.log(error)
     })
-    refresh(!stateRe);
   }
+
+/* Funcionalidad para el Search */
+
+const filteredTasks = tareas.filter(task =>
+  task.titulo.toLowerCase().includes(contextApp.searchValue.toLowerCase()) ||
+  task.descripcion.toLowerCase().includes(contextApp.searchValue.toLowerCase()) ||
+  task.status.toLowerCase().includes(contextApp.searchValue.toLowerCase())
+
+  // Agrega más propiedades de búsqueda según sea necesario
+);
 
 
 
   return (
     <div id="div_tabla">
-      <ModalEdit id={idUpdate} show={show} close={handleClose} refresh={refresh} 
+      <ModalEdit id={idUpdate} show={show} close={handleClose} 
       stateRe={stateRe} 
       stateModal={stateModal}
       setStateModal={setStateModal}
@@ -63,7 +78,7 @@ const Tabla = ({tareas, refresh, stateRe}) => {
           </tr>
         </thead>
         <tbody className="table-group-divider">
-          {tareas.map((row_tarea, index) => (
+          {filteredTasks.map((row_tarea, index) => (
           
             <tr className={row_tarea.status == 'Finalizada'? 'row-verde' : 
             row_tarea.status == 'Retrasada' ? 'row-rojo': 'row-azul'} 

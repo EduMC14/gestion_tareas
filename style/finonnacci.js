@@ -17,5 +17,7 @@ while (contador <= arr[arr.length - 1]) {
     }
 }
 
-console.log(newArray)
+let num = Math.ceil(20/7) * 7;
+
+console.log(num);
 

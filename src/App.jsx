@@ -1,47 +1,34 @@
 
 import Header from './components/Header.jsx'
-import Aside from './components/Aside.jsx'
 import Tabla from './components/Tabla.jsx';
 import Offcanvas from './components/Offcanvas.jsx';
 import dayjs from 'dayjs';
 import React from 'react';
 
-export const fechaContext = React.createContext();
+export const appContext = React.createContext();
 
 
 import { useState, useEffect } from 'react';
 
 
-
 function App() {
   const [tareas, setTareas] = useState([]);
   const [fecha, setFecha] = useState(null);
-  const [recargar, setRecargar] = useState(false);
-  const [reFechasHeader, setReFechasHeader] = useState(false);
   const [optionFechas, setOptionFechas] =  useState({
     hFechas: [],
     indice: null
   });
-  
-
+  const [searchValue, setSearchValue] = useState('');
   /* Estado y funciones para mostrar el canvas modal */
 
   const [show, setShow] = useState(false);
  
 
-  async function fetchTareas() {
-    console.log(fecha)
-    const response = await fetch(`http://localhost:3001/tareas/${fecha}`);
+  async function fetchTareas(date) {
+    const response = await fetch(`http://localhost:3001/tareas/${date}`);
     const data = await response.json();
     setTareas(data);
-    if (data.length == 0 && fecha !== null) {
-      console.log("Entre")
-      console.log(dayjs(optionFechas.hFechas[1].fecha).format('YYYY-MM-DD'))
-      setReFechasHeader(!reFechasHeader)
-      console.log(optionFechas.hFechas)
-      setFecha(dayjs(optionFechas.hFechas[1].fecha).format('YYYY-MM-DD'))
-      
-    }
+    console.log(tareas)
   }
   async function getFechas(){
     const request = await fetch('http://localhost:3001/fechas')
@@ -50,31 +37,30 @@ function App() {
     if (!fecha) {
       setFecha(dayjs(response[0].fecha).format('YYYY-MM-DD'));
     }
+    return response
     
   } 
   
-  useEffect(() => {
-    getFechas()
-  },[reFechasHeader]);
-
-  useEffect(() => {
-   fetchTareas();
-  }, [fecha, recargar]);
-
   
+  useEffect(() => {
+    getFechas();
+  }, []);
+
+  useEffect(() => {
+      fetchTareas(fecha);
+  }, [fecha]);
 
   return (
-  <fechaContext.Provider value={setFecha}>
+  <appContext.Provider value={{setFecha, fetchTareas, fecha, getFechas, setSearchValue, searchValue}}>
+    {console.log(optionFechas, optionFechas)}
     <div className='div_padre'>
-      <Header setShow={setShow} reFechas={reFechasHeader} optionFechas={optionFechas} setOptionFechas={setOptionFechas} />
+      <Header setShow={setShow} optionFechas={optionFechas} setOptionFechas={setOptionFechas} />
       <div className='div_body'>
-      <Offcanvas refresh={setRecargar} stateRe={recargar} stateShow={show} setShow={setShow}
-      setReFechasHeader={setReFechasHeader} reFechasHeader={reFechasHeader}/>
-      {/* <Aside stateTareas={setTareas} refresh={setRecargar} stateRe={recargar}/> */}
-      <Tabla tareas={tareas} refresh={setRecargar} stateRe={recargar} />
+      <Offcanvas stateShow={show} setShow={setShow}/>
+      <Tabla tareas={tareas} />
       </div>
     </div>
-  </fechaContext.Provider>
+  </appContext.Provider>
   )
 }
 

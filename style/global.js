@@ -76,6 +76,15 @@ export const GlobalStyles = createGlobalStyle`
 .Moon{
   width:25px;
 }
+
+.modal-hea-foo{
+  background-color: ${({theme}) => theme.bg_hea_foo};
+  color: ${({theme}) => theme.color_picker}
+}
+
+.modal-body{
+  background-color: ${({theme}) => theme.body_box}
+}
   `
 
 

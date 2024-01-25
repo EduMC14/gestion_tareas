@@ -11,8 +11,6 @@ dayjs.extend(customParseFormat);
 const Datetime = ( props ) => {
   const handleChange = (newValue) => {
     const newDate = dayjs(newValue).format('YYYY-MM-DD');
-    
-    console.log(props.property)
     props.save({...props.state, [props.property]:  newDate})
   };
 

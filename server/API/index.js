@@ -2,26 +2,14 @@ import  express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { connection } from './db.js'
-
+import routes from './endPoints.js'
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
 
-
-app.get('/fechas', (req,res) => {
-
-  const query = `select distinct DATE(create_date) as fecha from task order by fecha desc`
-
-  connection.query(query, (err, rows) => {
-    if (err){
-      res.status(500).json({error: err.message});
-    } else {
-      res.json(rows);
-    }
-  })
-});
+app.use('/', routes)
 
 app.get('/tareas/:fecha', (req, res) => {
 

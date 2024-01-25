@@ -20,5 +20,6 @@ export const darkTheme = {
     bg_picker: '#314A5A',
     color_picker:'whitesmoke',
     gradient: 'linear-gradient(#091236, #1E215D)',
-    body_box: '#262829'
+    body_box: '#262829',
+    bg_hea_foo: '#1e2125'
 }

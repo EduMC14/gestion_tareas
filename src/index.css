@@ -16,6 +16,7 @@
     
 }
 
+
 .navbar{
     background-color: #1e2125;
     height: 9%;
@@ -66,14 +67,6 @@
 }
 
 
-
-
-/* thead{
-    color: black;
-} */
-
-
-
 .date-picker-wrapper .MuiInputBase-root {
     width: 300px; /* ajusta el ancho */
     height: 45px; /* ajusta la altura */
@@ -105,3 +98,18 @@ th{
     
 }
 
+
+
+/* CSS MODAL */
+
+/* .modal-hea-foo{
+    background-color: #1e2125 !important;
+}
+ */
+/* .modal-color{
+    color: whitesmoke;
+}
+
+.modal-body{
+   background-color: #262829 ; 
+} */
