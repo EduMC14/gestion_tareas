@@ -1,6 +1,6 @@
- import styled from 'styled-components'
+import styled from 'styled-components'
 
- export const ToggleContainer = styled.button`
+export const ToggleContainer = styled.button`
   background: ${({ theme }) => theme.gradient};
   border: 2px solid ${({ theme }) => theme.toggleBorder};
   border-radius: 30px;
@@ -30,5 +30,4 @@
       transform: ${({ lightTheme }) => lightTheme ? 'translateY(-100px)' : 'translateY(0)'};
     }
   }
-`;
-
+`

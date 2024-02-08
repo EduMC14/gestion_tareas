@@ -1,23 +1,19 @@
+let contador = 0
+const newArray = []
+let index = 0
 
-let contador = 0;
-let newArray = [];
-let index = 0;
-
-let arr = [1,3,5,7,40,50];
-
+const arr = [1, 3, 5, 7, 40, 50]
 
 while (contador <= arr[arr.length - 1]) {
-
-    if (arr[index] == contador) {
-        index++;
-        contador++;
-    } else{
-        newArray.push(contador)
-        contador++;
-    }
+  if (arr[index] == contador) {
+    index++
+    contador++
+  } else {
+    newArray.push(contador)
+    contador++
+  }
 }
 
-let num = Math.ceil(20/7) * 7;
+const num = Math.ceil(20 / 7) * 7
 
-console.log(num);
-
+console.log(num)
