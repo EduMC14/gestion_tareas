@@ -1,11 +1,13 @@
 import { createConnection } from 'mysql'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const db = createConnection({
   host: 'localhost',
-  user: 'root',
-  password: 'Emc140999',
-  database: 'crud_php_mysql',
-  port: 3307
+  user: process.env.DB_USER,
+  password: process.env.PASSWORD_DB,
+  database: process.env.DB_NAME,
+  port: process.env.PORT
 })
 
 db.connect((err) => {

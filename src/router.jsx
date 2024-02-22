@@ -23,33 +23,62 @@ function parseJwt (token) {
   }
 }
 
+const ls = window.localStorage
+
 const Routers = () => {
   const [loginUser, setLoginUser] = useState(() => {
     // Recupera el estado de autenticación desde el almacenamiento local al cargar la aplicación
-    const storedLoginUser = localStorage.getItem('loginUser')
+    const storedLoginUser = ls.getItem('loginUser')
     console.log(storedLoginUser)
     return storedLoginUser ? JSON.parse(storedLoginUser) : false
   })
+  // Estado para saber si mi token a expirado o no
   const [activatedToken, setActivedToken] = useState(() => {
-    const storedToken = localStorage.getItem('token')
-    console.log(parseJwt(localStorage.getItem('token')))
-    console.log(`${parseJwt(localStorage.getItem('token')).exp * 1000} > ${Date.now()} condicion`)
-    if (parseJwt(localStorage.getItem('token')).exp * 1000 > Date.now()) {
+    const storedToken = ls.getItem('token')
+    console.log(parseJwt(ls.getItem('token')))
+    console.log(`${parseJwt(ls.getItem('token')).exp * 1000} > ${Date.now()} condicion`)
+    if (parseJwt(storedToken).exp * 1000 > Date.now()) {
       return true
     } else {
-      localStorage.setItem('loginUser', false)
+      ls.setItem('loginUser', false)
       return false
+    }
+  })
+  // Estado del email del usuario logueado
+  const [emailLogued, setEmailLogued] = useState(() => {
+    // Recupero el email, si hay un usuario logueado
+    if (loginUser) {
+      const desToken = parseJwt(ls.getItem('token'))
+      window.localStorage.setItem('userEmail', desToken.email)
+      return desToken.email
+    } else {
+      return 'No hay ningun usuario logueado'
     }
   })
 
   useEffect(() => {
     // Almacena el estado de autenticación en el almacenamiento local cada vez que cambia
-    localStorage.setItem('loginUser', JSON.stringify(loginUser))
+    ls.setItem('loginUser', JSON.stringify(loginUser))
+    if (loginUser === false) {
+      window.localStorage.removeItem('userEmail')
+      window.localStorage.removeItem('token')
+      setEmailLogued(false)
+    }
+    console.log(emailLogued)
   }, [loginUser])
 
   return (
     <BrowserRouter>
-      <RouterContext.Provider value={{ loginUser, setLoginUser, activatedToken, setActivedToken }}>
+      <RouterContext.Provider value={{
+        loginUser,
+        setLoginUser,
+        activatedToken,
+        setActivedToken,
+        parseJwt,
+        emailLogued,
+        setEmailLogued
+      }}
+      >
         <Routes>
           <Route element={<ProtectAuth />}>
             <Route path='/tareasBitam' element={<App />} />

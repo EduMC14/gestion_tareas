@@ -6,16 +6,19 @@ import Datetime from './Datetime'
 import dayjs from 'dayjs'
 import { toast } from 'react-toastify'
 import { appContext } from '../App'
+import { RouterContext } from '../router'
 
 function Example ({ stateShow, setShow }) {
   const appContexto = useContext(appContext)
+  const rouContext = useContext(RouterContext)
 
   const [formTask, setFormTask] = useState({
     fecha_de_inicio: dayjs().format('YYYY-MM-DD'),
     titulo: '',
     descripcion: '',
     fecha_a_entregar: dayjs().format('YYYY-MM-DD'),
-    status: ''
+    status: '',
+    email: rouContext.emailLogued
   })
   const [checkboxes, setCheckboxes] = useState({
     Finalizada: false,
@@ -42,15 +45,15 @@ function Example ({ stateShow, setShow }) {
 
   const submitForm = (e) => {
     e.preventDefault()
-    const authToken = 'tu_token_aqui';
+    const authToken = 'tu_token_aqui'
 
-  const headers = {
-    Authorization: `Bearer ${authToken}`,
+    const headers = {
+      Authorization: `Bearer ${authToken}`
     // Otros encabezados que puedas necesitar
-  };
-
+    }
+    console.log(formTask)
     toast.promise(
-      axios.post('http://localhost:3001/saveTask', formTask, {headers}),
+      axios.post('http://localhost:3001/saveTask', formTask, { headers }),
       {
         pending: 'Guardando...',
         success: 'Tarea Guardada 👌',

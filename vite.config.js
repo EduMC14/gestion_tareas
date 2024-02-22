@@ -11,5 +11,11 @@ export default defineConfig({
         // svgr options
       }
     })
-  ]
+  ],
+  server: {
+    // Configura el puerto si lo deseas
+    port: 5173,
+    // Define la ruta de acceso inicial cuando el servidor se inicia
+    open: '/login'
+  }
 })

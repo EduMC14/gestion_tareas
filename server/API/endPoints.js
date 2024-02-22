@@ -4,10 +4,10 @@ import login from '../controller/loginController.js'
 import userRegister from '../controller/signUpController.js'
 const router = express.Router()
 
-router.get('/fechas', fechas)
+router.get('/fechas/:email', fechas)
 
 router.post('/login', login)
 
-router.post('/registerUser', userRegister )
+router.post('/registerUser', userRegister)
 
 export default router

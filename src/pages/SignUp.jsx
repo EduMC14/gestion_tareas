@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+
+import signUpTask from '../assets/signUpTask.jpeg'
 import {
   MDBBtn,
   MDBContainer,
@@ -8,39 +10,37 @@ import {
   MDBCardBody,
   MDBCardImage,
   MDBInput,
-  MDBIcon,
+  MDBIcon
 }
   from 'mdb-react-ui-kit'
 
 const SignUp = () => {
-
   const [userRegister, setUserregister] = useState({
     username: '',
     email: '',
-    password:''
+    password: ''
   })
 
-  function saveUser(e){
-    setUserregister({...userRegister, [e.target.name]: e.target.value})
+  function saveUser (e) {
+    setUserregister({ ...userRegister, [e.target.name]: e.target.value })
   }
 
-  async function sendRegister(e) {
+  async function sendRegister (e) {
     e.preventDefault()
     try {
       const request = await fetch('http://localhost:3001/registerUser', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(userRegister)
-    })
-    const response = await request.json()
-    console.log(response)
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userRegister)
+      })
+      const response = await request.json()
+      console.log(response)
     } catch (error) {
       console.log(error)
     }
   }
-
 
   return (
     <MDBContainer fluid>
@@ -67,17 +67,12 @@ const SignUp = () => {
                 <MDBInput label='Password' id='form3' type='password' name='password' onChange={saveUser} />
               </div>
 
-              <div className='d-flex flex-row  mb-4'>
-                <MDBIcon fas icon='key me-3' size='lg' className='mt-3' />
-                <MDBInput label='Repeat your password' id='form4' type='password' />
-              </div>
-
               <MDBBtn className='mb-4' size='lg' onClick={sendRegister}>Registrate</MDBBtn>
 
             </MDBCol>
 
             <MDBCol md='10' lg='6' className='order-1 order-lg-2 d-flex align-items-center'>
-              <MDBCardImage src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp' fluid />
+              <MDBCardImage src={signUpTask} fluid className='col-' />
             </MDBCol>
 
           </MDBRow>
@@ -88,4 +83,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp;
+export default SignUp

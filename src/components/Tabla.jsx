@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import React, { useState, useContext } from 'react'
 import axios from 'axios'
 import Button from 'react-bootstrap/esm/Button'
@@ -17,7 +19,6 @@ const Tabla = ({ tareas, stateRe }) => {
     descripcion: '',
     fecha_a_entregar: dayjs(new Date().toLocaleDateString()).format('YYYY-MM-DD'),
     status: ''
-
   })
 
   const handleClose = () => setShow(false)
@@ -75,9 +76,9 @@ const Tabla = ({ tareas, stateRe }) => {
           {filteredTasks.map((row_tarea, index) => (
 
             <tr
-              className={row_tarea.status == 'Finalizada'
+              className={row_tarea.status === 'Finalizada'
                 ? 'row-verde'
-                : row_tarea.status == 'Retrasada' ? 'row-rojo' : 'row-azul'}
+                : row_tarea.status === 'Retrasada' ? 'row-rojo' : 'row-azul'}
               key={index} id='row-header'
             >
               <th className='align-middle'>{dayjs(row_tarea.create_date).format('DD/MM/YYYY')}</th>
@@ -85,9 +86,9 @@ const Tabla = ({ tareas, stateRe }) => {
               <th className='text-break'>{row_tarea.descripcion}</th>
               <th className='align-middle text-center'>{dayjs(row_tarea.fecha_a_entregar).format('DD/MM/YYYY')}</th>
               <th className={
-                row_tarea.status == 'Finalizada'
+                row_tarea.status === 'Finalizada'
                   ? 'text-success align-middle text-center'
-                  : row_tarea.status == 'Retrasada' ? 'text-danger align-middle text-center' : 'text-primary align-middle align-middle text-center'
+                  : row_tarea.status === 'Retrasada' ? 'text-danger align-middle text-center' : 'text-primary align-middle align-middle text-center'
               }
               ><strong>{row_tarea.status}</strong>
               </th>

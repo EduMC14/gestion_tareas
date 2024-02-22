@@ -13,11 +13,12 @@ app.use(bodyParser.json())
 
 app.use('/', routes)
 
-app.get('/tareas/:fecha', authToken , (req, res) => {
-  const fecha = req.params.fecha
-  const query = `SELECT DISTINCT * FROM task WHERE create_date LIKE '%${fecha}%'`
+app.get('/tareas/:fecha/:email', authToken, (req, res) => {
+  const { fecha, email } = req.params
+  console.log(email)
+  const query = 'SELECT DISTINCT * FROM task WHERE create_date LIKE ? AND email = ?'
 
-  connection.query(query, (err, rows) => {
+  connection.query(query, [`%${fecha}%`, email], (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message })
     } else {
@@ -29,10 +30,10 @@ app.get('/tareas/:fecha', authToken , (req, res) => {
 })
 
 app.post('/saveTask', (req, res) => {
-  const { fecha_de_inicio, titulo, descripcion, fecha_a_entregar, status } = req.body
+  const { fecha_de_inicio, titulo, descripcion, fecha_a_entregar, status, email } = req.body
 
-  const query = 'INSERT INTO task(fecha_de_inicio, titulo, descripcion, fecha_a_entregar, status) VALUES (?,?,?,?,?)'
-  connection.query(query, [fecha_de_inicio, titulo, descripcion, fecha_a_entregar, status], function (error, results) {
+  const query = 'INSERT INTO task(fecha_de_inicio, titulo, descripcion, fecha_a_entregar, status, email) VALUES (?,?,?,?,?,?)'
+  connection.query(query, [fecha_de_inicio, titulo, descripcion, fecha_a_entregar, status, email], function (error, results) {
     if (error) {
       res.status(500).json({
         message: 'Hubo un error al guardar',

@@ -5,15 +5,15 @@ import { ThemeProvider } from 'styled-components'
 import { lightTheme, darkTheme } from '../../style/theme.js'
 import { GlobalStyles } from '../../style/global'
 import Toggle from './Toggle'
-
-import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
 
 import { appContext } from '../App.jsx'
+import { RouterContext } from '../router.jsx'
 
 const Header = ({ setShow, setOptionFechas, optionFechas }) => {
   const contextHeader = useContext(appContext)
-
+  const routerContext = useContext(RouterContext)
+  console.log(routerContext.emailLogued)
   const [theme, setTheme] = useState('light')
 
   // The function that toggles between themes
@@ -52,7 +52,6 @@ const Header = ({ setShow, setOptionFechas, optionFechas }) => {
           data-bs-toggle='collapse'
           data-bs-target='#navbarSupportedContent'
           aria-controls='navbarSupportedContent'
-
           aria-expanded='false'
           aria-label='Toggle navigation'
         >
@@ -71,7 +70,6 @@ const Header = ({ setShow, setOptionFechas, optionFechas }) => {
               >
                 {optionFechas.hFechas.map((row, index) => (
                   <option
-
                     value={dayjs(row.fecha).format('YYYY-MM-DD')}
                     key={index}
                     id={`${index}`}
@@ -88,13 +86,13 @@ const Header = ({ setShow, setOptionFechas, optionFechas }) => {
 
             </li>
           </ul>
+          <h6>{routerContext.emailLogued}</h6>
           <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
             <>
               <GlobalStyles />
               <Toggle theme={theme} toggleTheme={toggleTheme} />
             </>
           </ThemeProvider>
-
           <form className='d-flex' role='search'>
             <input
               className='form-control me-2'
@@ -104,9 +102,6 @@ const Header = ({ setShow, setOptionFechas, optionFechas }) => {
               value={appContext.searchValue}
               onChange={setSearch}
             />
-            <button className='btn btn-outline-primary'>
-              Search
-            </button>
           </form>
         </div>
       </div>

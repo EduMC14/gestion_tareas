@@ -1,23 +1,22 @@
 import usersModel from '../models/usersModel.js'
 import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const login = (req, res) => {
-
   usersModel.userLogin(req.body, (error, result) => {
     if (error) {
-      res.send(error)
+      return res.status(401).json({ message: error.message })
     }
-    
-    if (result.length > 0) {
-      const {email, username} = result[0]
+    console.log(result.success)
+    if (result.success) {
+      console.log('Entre enviar token')
+      const { email, username } = result.user
       console.log(email, username)
-      const token = jwt.sign({ email, username }, 'emc', {
-        expiresIn: '3m'
+      const token = jwt.sign({ email, username }, process.env.SECRET_WORD, {
+        expiresIn: '10m'
       })
-      res.send({ token })
-    } else {
-      console.log('Usuario Equivocado')
-      res.send({ message: 'Usuario Equivocado' })
+      res.status(200).json({ token })
     }
   })
 }
