@@ -5,7 +5,7 @@ import bodyParser from 'body-parser'
 
 import { connection } from './db.js'
 import routes from './endPoints.js'
-import authToken from '../middleware/authtoken.js'
+import authToken from '../middleware/authToken.js'
 
 const app = express()
 app.use(cors())
