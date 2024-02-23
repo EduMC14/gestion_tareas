@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "start": "node server/API/index.js",
-    "lint": "standard --fix"
+    "dev:lint": "standard --fix"
   },
   "dependencies": {
     "@mui/x-date-pickers": "^6.2.1",

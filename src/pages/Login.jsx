@@ -3,6 +3,7 @@ import { Col, Button, Row, Container, Card, Form } from 'react-bootstrap'
 import tareas from '../assets/tareas.png'
 import { useNavigate } from 'react-router-dom'
 import { RouterContext } from '../router'
+import { ToastContainer, toast } from 'react-toastify'
 
 function Login () {
   const contextLogin = useContext(RouterContext)
@@ -27,6 +28,7 @@ function Login () {
       body: JSON.stringify(credenciales)
     })
     const response = await request.json()
+    console.log(response)
 
     if (response.token) {
       // Funcion para desencriptar mi token
@@ -38,12 +40,17 @@ function Login () {
       contextLogin.setEmailLogued(tokenDes.email)
       navigate('/tareasBitam')
     } else {
-      console.log('No existe el token usuario erroneo')
+      toast.error('El email o la contraseña es incorrecta',
+        {
+          position: 'bottom-center',
+          pauseOnHover: true
+        })
     }
   }
 
   return (
     <div>
+      <ToastContainer autoClose={1500} />
       <Container>
         <Row className='vh-100 d-flex justify-content-center align-items-center'>
           <Col md={8} lg={6} xs={12}>

@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-
-import signUpTask from '../assets/signUpTask.jpeg'
+import { ToastContainer, toast } from 'react-toastify'
+import taskIcon from '../assets/task-icon.jpg'
 import {
-  MDBBtn,
   MDBContainer,
   MDBRow,
   MDBCol,
@@ -34,9 +33,15 @@ const SignUp = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(userRegister)
-      })
+      }
+      )
       const response = await request.json()
-      console.log(response)
+      console.log(response.status)
+      if (response.status === 201) {
+        toast.success('Usuario Registrado 👌')
+      } else {
+        toast.error('El usuario o email ya existen 🤯')
+      }
     } catch (error) {
       console.log(error)
     }
@@ -44,7 +49,7 @@ const SignUp = () => {
 
   return (
     <MDBContainer fluid>
-
+      <ToastContainer autoClose={1500} />
       <MDBCard className='text-black m-5' style={{ borderRadius: '25px' }}>
         <MDBCardBody>
           <MDBRow>
@@ -67,12 +72,11 @@ const SignUp = () => {
                 <MDBInput label='Password' id='form3' type='password' name='password' onChange={saveUser} />
               </div>
 
-              <MDBBtn className='mb-4' size='lg' onClick={sendRegister}>Registrate</MDBBtn>
-
+              <button className='btn btn-primary btn-lg' onClick={sendRegister}>Registrate</button>
             </MDBCol>
 
-            <MDBCol md='10' lg='6' className='order-1 order-lg-2 d-flex align-items-center'>
-              <MDBCardImage src={signUpTask} fluid className='col-' />
+            <MDBCol md='10' lg='6' className='order-1 order-lg-2 d-flex align-items-center justify-content-center'>
+              <MDBCardImage src={taskIcon} fluid className='img-sign' style={{ height: '400px' }} />
             </MDBCol>
 
           </MDBRow>

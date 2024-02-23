@@ -29,13 +29,15 @@ const userRegister = async (req, res) => {
       if (duplicateUsername) {
         console.log('usuerio ya existe')
         return res.status(400).json({
-          message: 'Este nombre de usuario ya existe'
+          message: 'Este nombre de usuario ya existe',
+          status: 400
         })
       }
       if (duplicateEmail) {
         console.log('email ya existe')
         return res.status(400).json({
-          message: 'Este email ya existe'
+          message: 'Este email ya existe',
+          status: 400
         })
       }
 
@@ -50,8 +52,9 @@ const userRegister = async (req, res) => {
           console.log('usuario creado')
           console.log(result)
           console.log('envie esto')
-          return res.status(200).json({
-            message: 'Usuario creado correctamente'
+          return res.status(201).json({
+            message: 'Usuario creado correctamente',
+            status: 201
           })
         }
       })

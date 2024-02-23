@@ -87,6 +87,8 @@ app.use(function (err, req, res, next) {
   res.status(500).send('Algo salió mal!')
 })
 
-app.listen(3001, () => {
-  console.log('API RESTful corriendo en el puerto 3001')
+const PORT_API = process.env.PORT_API || 3001
+
+app.listen(PORT_API, () => {
+  console.log(`API RESTful corriendo en el puerto ${PORT_API}`)
 })
