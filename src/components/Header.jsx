@@ -57,7 +57,7 @@ const Header = ({ setShow, setOptionFechas, optionFechas }) => {
         >
           <span className='navbar-toggler-icon' />
         </button>
-        <div className='collapse navbar-collapse' id='navbarSupportedContent'>
+        <div className='collapse navbar-collapse d-flex align-items-center' id='navbarSupportedContent'>
           <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
             <li className='nav-item'>
               <a className='nav-link active fs-6'>Fecha</a>
@@ -86,7 +86,7 @@ const Header = ({ setShow, setOptionFechas, optionFechas }) => {
 
             </li>
           </ul>
-          <h6>{routerContext.emailLogued}</h6>
+          <h6 className='name_user'>{routerContext.emailLogued}</h6>
           <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
             <>
               <GlobalStyles />
